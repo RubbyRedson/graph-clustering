@@ -16,14 +16,14 @@ L = D_square_rooted * A * D_square_rooted;
 
 %Find the eigenvalues (v) and the eigenvectors (S)
 [v, S] = eig(L);
-[_, sorted_eigenvectors] = sort(diag(S)); %possibly needs to be abs(diag(S))
+[sorted_eigenvalues, sorted_eigenvectors] = sort(abs(diag(S)), 'descend');
 
 %Parameter k that corresponds to number of clusters
 k = 3;
 [n, _] = size(A); % Also save the size of input in a variable
 
 % Now we take the K largest eigenvectors, as described in step 3
-top_k_eigenvectors = v(:, sorted_eigenvectors(1:k));
+top_k_eigenvectors = v(:, sorted_eigenvectors(2:k+1));
 
 % We need to normalize it before we do K-means, step 4
 Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2));
@@ -32,7 +32,7 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
 [idx, centers] = kmeans(Y, k);
 
  % Plot the result for 3 clusters
- %{
+
  figure;
  plot (Y (idx==1, 1), Y (idx==1, 2), 'ro');
  hold on;
@@ -40,9 +40,9 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
  hold on;
  plot (Y (idx==3, 1), Y (idx==3, 2), 'go');
  plot (centers (:, 1), centers (:, 2), 'kv', 'markersize', 10);
- %}
- 
+
   % Plot the result for 2 clusters
+
  %{
  figure;
  plot (Y (idx==1, 1), Y (idx==1, 2), 'ro');
@@ -56,4 +56,4 @@ for i=1:k
     i_idx = idx == i;
     output(i_idx, i) = 1;
 end
-output
+output;
