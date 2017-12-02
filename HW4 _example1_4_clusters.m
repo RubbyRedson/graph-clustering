@@ -1,4 +1,4 @@
-E = csvread('./example2.dat');
+E = csvread('./example1.dat');
 col1 = E(:,1);
 col2 = E(:,2);
 
@@ -19,7 +19,7 @@ L = D_square_rooted * A * D_square_rooted;
 [sorted_eigenvalues, sorted_eigenvectors] = sort(abs(diag(S)), 'descend');
 
 %Parameter k that corresponds to number of clusters
-k = 2;
+k = 4;
 [n, _] = size(A); % Also save the size of input in a variable
 
 % Now we take the K largest eigenvectors, as described in step 3
@@ -41,7 +41,7 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
  hold on;
  plot (Y (idx==3, 1), Y (idx==3, 2), 'go');
  plot (centers (:, 1), centers (:, 2), 'kv', 'markersize', 10);
-  %}
+
   % Plot the result for 2 clusters
 
  figure;
@@ -49,11 +49,10 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
  hold on;
  plot (Y (idx==2, 1), Y (idx==2, 2), 'bs');
  plot (centers (:, 1), centers (:, 2), 'kv', 'markersize', 10);
-
+  %}
 
 % Plot the result for 4 clusters
 
- %{
  figure;
  plot (Y (idx==1, 1), Y (idx==1, 2), 'ro');
  hold on;
@@ -63,7 +62,7 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
  hold on;
  plot (Y (idx==4, 1), Y (idx==4, 2), 'ys');
  plot (centers (:, 1), centers (:, 2), 'kv', 'markersize', 10);
- %}
+
  
  % Finally, we assign a node to the same cluster as was assigned to the corresponding row 
 output = zeros(n, k);

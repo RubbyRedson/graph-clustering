@@ -17,7 +17,7 @@ L = D_square_rooted * A * D_square_rooted;
 %Find the eigenvalues (v) and the eigenvectors (S)
 [v, S] = eig(L);
 [sorted_eigenvalues, sorted_eigenvectors] = sort(abs(diag(S)), 'descend');
-
+sorted_eigenvalues
 %Parameter k that corresponds to number of clusters
 k = 2;
 [n, _] = size(A); % Also save the size of input in a variable
