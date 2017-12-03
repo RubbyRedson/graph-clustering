@@ -16,7 +16,7 @@ L = D_square_rooted * A * D_square_rooted;
 
 %Find the eigenvalues (v) and the eigenvectors (S)
 [v, S] = eig(L);
-[sorted_eigenvalues, sorted_eigenvectors] = sort(abs(diag(S)), 'descend');
+[sorted_eigenvalues, sorted_eigenvectors] = sort(diag(S), 'descend');
 
 %Parameter k that corresponds to number of clusters
 k = 4;
@@ -60,7 +60,7 @@ Y = top_k_eigenvectors ./ sqrt(sum(top_k_eigenvectors .* top_k_eigenvectors, 2))
  hold on;
  plot (Y (idx==3, 1), Y (idx==3, 2), 'go');
  hold on;
- plot (Y (idx==4, 1), Y (idx==4, 2), 'ys');
+ plot (Y (idx==4, 1), Y (idx==4, 2), 'ps');
  plot (centers (:, 1), centers (:, 2), 'kv', 'markersize', 10);
 
  
